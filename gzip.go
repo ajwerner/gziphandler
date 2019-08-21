@@ -151,11 +151,6 @@ func (w *GzipResponseWriter) startGzip() error {
 	// Set the GZIP header.
 	w.Header().Set(contentEncoding, "gzip")
 
-	// if the Content-Length is already set, then calls to Write on gzip
-	// will fail to set the Content-Length header since its already set
-	// See: https://github.com/golang/go/issues/14975.
-	w.Header().Del(contentLength)
-
 	// Write the header to gzip response.
 	if w.code != 0 {
 		w.ResponseWriter.WriteHeader(w.code)
